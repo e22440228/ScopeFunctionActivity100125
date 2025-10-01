@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.random.Random
@@ -19,7 +21,19 @@ class MainActivity : AppCompatActivity() {
         // printing their output to the Log, which is visible in the LogCat:
         // eg. Log.d("function output", getTestDataArray().toString())
         Log.d("function output", getTestDataArray().toString())
+        Log.d("median",averageLessThanMedian(getTestDataArray() as List<Double>).toString())
+        var root = findViewById<LinearLayout>(R.id.root)
+        val data = listOf(1,2,3,4)
+        var index = 0
+        val v0 = getView(index,null,data,this)
+        root.addView(v0)
 
+        findViewById<Button>(R.id.button).setOnClickListener {
+            index += 1
+            if (index >= data.size)
+                index = 0
+            getView(index,v0,data,this)
+        }
 
     }
 
@@ -36,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 //        testArray.sort()
 //        return testArray
 //    }
-    private fun getTestDataArray():List<Int> = MutableList(10){Random.nextInt()}.apply { sorted() }
+    private fun getTestDataArray():List<Int> = MutableList(10){Random.nextInt()}.apply { sort() }
     // Return true if average value in list is greater than median value, false otherwise
 //    private fun averageLessThanMedian(listOfNumbers: List<Double>): Boolean {
 //        val avg = listOfNumbers.average()
