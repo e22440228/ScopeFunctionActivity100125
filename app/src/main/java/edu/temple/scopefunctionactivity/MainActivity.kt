@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         // You can test your helper functions by  calling them from onCreate() and
         // printing their output to the Log, which is visible in the LogCat:
         // eg. Log.d("function output", getTestDataArray().toString())
+        Log.d("function output", getTestDataArray().toString())
 
     }
 
@@ -46,20 +48,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Create a view from an item in a collection, but recycle if possible (similar to an AdapterView's adapter)
-    private fun getView(position: Int, recycledView: View?, collection: List<Int>, context: Context): View {
-        val textView: TextView
-
-        if (recycledView != null) {
-            textView = recycledView as TextView
-        } else {
-            textView = TextView(context)
-            textView.setPadding(5, 10, 10, 0)
-            textView.textSize = 22f
-        }
-
-        textView.text = collection[position].toString()
-
-        return textView
-    }
+//    private fun getView(position: Int, recycledView: View?, collection: List<Int>, context: Context): View {
+//        val textView: TextView
+//
+//        if (recycledView != null) {
+//            textView = recycledView as TextView
+//        } else {
+//            textView = TextView(context)
+//            textView.setPadding(5, 10, 10, 0)
+//            textView.textSize = 22f
+//        }
+//
+//        textView.text = collection[position].toString()
+//
+//        return textView
+//    }
+    private fun getView(
+        position : Int,
+        recyclerView: View?,
+        collection: List<Int>,
+        context:Context
+    ) : View = (recyclerView as? TextView ?: TextView(context).apply {
+        setPadding(5,10,10,0)
+        textSize = 22f
+    }).also { it.text = collection[position].toString() }
 
 }
